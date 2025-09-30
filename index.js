@@ -49,7 +49,11 @@ var format = exports.format = {
 			}
 		},
 		list: {
-			group: function($) {
+			group: function($, type) {
+				if (type === 'bullet') {
+					return $('<ul>');
+				}
+
 				return $('<ol>');
 			},
 			line: function() {
@@ -100,7 +104,7 @@ function convert(ops) {
 								}
 								if (!group && fn.group) {
 									group = {
-										el: fn.group($),
+										el: fn.group($, op.attributes[k]),
 										type: k,
 										distance: 0
 									};
